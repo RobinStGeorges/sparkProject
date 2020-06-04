@@ -1,7 +1,11 @@
-import org.apache.spark.sql.SparkSession
-import fr.xebia.training.advancedspark.testing.Testing.getMaxFromColumn
-import org.scalatest.{FlatSpec, Matchers}
-
-class TestingTest extends FlatSpec with Matchers {
-
-}
+# import org.apache.spark.rdd.RDD
+# import org.apache.spark.{SparkContext, SparkConf}
+# import org.junit.Test
+#
+# class TestingTest extends FlatSpec with Matchers:
+#     @Test
+#     public void doControllerTest(){
+#
+#     Controller controller = new Controller();
+#     controller.doSomething():
+#
