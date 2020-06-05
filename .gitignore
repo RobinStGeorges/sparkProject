@@ -10,3 +10,4 @@ stats.parquet
 /HelloWorld.egg-info/
 /__pycache__/
 /build/lib.linux-x86_64-2.7/
+*.pyc
