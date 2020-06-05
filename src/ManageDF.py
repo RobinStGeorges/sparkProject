@@ -52,7 +52,7 @@ def get_stats_df(df):
         .agg(
         F.avg(df.score_france).alias("avg_score_france"),
         F.avg(df.score_adversaire).alias("avg_score_adversaire"),
-        F.count(df.adversaire).alias("nb_match_jou-e-accent-aigu"),
+        F.count(df.adversaire).alias("nb_match_joue"),
         (F.sum(df.is_played_home.cast('int')) * 100 / F.count(df.adversaire)).alias('percent_home_played'),
         F.sum(is_world_cup_udf(df.competition)).alias('nb_mach_in_world_cup'),
         F.max(df.penalty_france).alias('max_penalty_france'),
@@ -62,8 +62,11 @@ def get_stats_df(df):
     return df_stat
 
 
-def join_df_on_field(df1, df2):
+def join_df(df1, df2):
+    df2 = df2.withColumnRenamed("adversaire", "adversaire_name")
+
     joined_df = df1.join(
-        df2, df1.adversaire == df2.adversaire
+        df2, df1.adversaire == df2.adversaire_name
     )
+    joined_df = joined_df.drop('adversaire_name')
     return joined_df
