@@ -12,12 +12,13 @@ spark = SparkSession.builder.getOrCreate()
 
 
 def main(argv):
-    print(argv[1])
     df = load_csv_into_df()
     formated_df = format_df_data(df)
     filtered_df = filter_col_data(formated_df)
     df_with_is_played_home_col = add_column_is_played_home(filtered_df)
-    df_with_is_played_home_col.show()
+    stats_df = get_stats_df(df_with_is_played_home_col)
+    stats_df.show()
+    #df_with_is_played_home_col.show()
 
 
 # Import data from CSV into a Spark dataframe
@@ -51,6 +52,8 @@ def is_played_home(rencontre):
         return False
 
 
+
+#UDF calling checking if match is played at home, returns a bool
 is_home_udf = F.udf(is_played_home, BooleanType())
 
 
@@ -58,6 +61,20 @@ def add_column_is_played_home(df):
     df_with_is_played_home_col = df.withColumn("is_played_home", is_home_udf(df.match))
     return df_with_is_played_home_col
 
+def get_stats_df(df):
+    df_stat = (df
+        .groupBy("adversaire")
+        .agg(
+        F.avg(df.score_france).alias("avg_score_france"),
+        F.avg(df.score_adversaire).alias("avg_score_adversaire"),
+        F.count(df.adversaire).alias("nb_match_jou-e-accent-aigu")
+    )
+    )
+    return df_stat
+
+
+def write_df_to_parquet_file(df, file_name):
+    df.write.parquet(file_name)
 
 if __name__ == "__main__":
     main(sys.argv)
