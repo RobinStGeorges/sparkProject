@@ -1,1 +1,4 @@
-to launch : /usr/local/spark-X.X.X-preview2-bin-hadoopX.X/bin/spark-submit --master local --py-files dist/HelloWorld-0.1-py2.7.egg launch.py
+
+to launch :
+
+/usr/local/spark-X.X.X-preview2-bin-hadoopX.X/bin/spark-submit --master local --py-files dist/HelloWorld-0.1-py2.7.egg launch.py /path/to/fil.csv

@@ -12,7 +12,8 @@ spark = SparkSession.builder.getOrCreate()
 
 
 def main(argv):
-    df = load_csv_into_df()
+    file_path = argv[1]
+    df = load_csv_into_df(file_path)
     formated_df = format_df_data(df)
     filtered_df = filter_col_data(formated_df)
     df_with_is_played_home_col = add_column_is_played_home(filtered_df)
@@ -22,8 +23,9 @@ def main(argv):
 
 
 # Import data from CSV into a Spark dataframe
-def load_csv_into_df():
-    df = spark.read.csv("src/df_matches.csv", header=True)
+def load_csv_into_df(file_path):
+    df = spark.read.csv(file_path, header=True)
+    #df = spark.read.csv("src/df_matches.csv", header=True)
     return df
 
 
