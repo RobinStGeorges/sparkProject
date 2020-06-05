@@ -1,4 +1,12 @@
+#Projet Spark Robin SAINT GEORGES 5ALJ
 
-to launch :
+##to init :
+lancer depuis dossier exo :
+```
+python setup.py bdist_egg
+```
 
-/usr/local/spark-X.X.X-preview2-bin-hadoopX.X/bin/spark-submit --master local --py-files dist/HelloWorld-0.1-py2.7.egg launch.py /path/to/fil.csv
+##to launch :
+```
+/usr/local/spark-X.X.X-preview2-bin-hadoopX.X/bin/spark-submit --master local --py-files dist/HelloWorld-0.1-py2.7.egg launch.py /path/to/file.csv
+```
