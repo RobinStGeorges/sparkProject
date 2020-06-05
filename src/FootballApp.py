@@ -20,8 +20,7 @@ def main(argv):
     df_with_is_played_home_col = add_column_is_played_home(filtered_df)
     df_with_is_played_home_col.show()
     stats_df = get_stats_df(df_with_is_played_home_col)
-    stats_df.show(100)
-    # df_with_is_played_home_col.show()
+    write_df_to_parquet_file(stats_df, 'stats.parquet')
 
 
 # Import data from CSV into a Spark dataframe
@@ -85,7 +84,7 @@ def get_stats_df(df):
         (F.sum(df.is_played_home.cast('int')) * 100 / F.count(df.adversaire)).alias('percent_home_played'),
         F.sum(is_world_cup_udf(df.competition)).alias('nb_mach_in_world_cup'),
         F.max(df.penalty_france).alias('max_penalty_france'),
-        (F.sum(df.penalty_france) - F.sum(df.penalty_adversaire)).alias('dif penalty')
+        (F.sum(df.penalty_france) - F.sum(df.penalty_adversaire)).alias('dif_penalty')
 
     )
     )

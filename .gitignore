@@ -4,3 +4,5 @@ spar.idea
 *.egg
 *.csv
 *.parquet
+stats.parquet
+/stats.parquet/
